@@ -33,6 +33,11 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
+ipcMain.on('performTest', async (event, arg) => {
+  console.log('main recv performTest: ' + JSON.stringify(arg));
+  event.reply('testReply', {reply:23});
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -81,6 +86,7 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+	  nodeIntegration:true
     },
   });
 

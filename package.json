@@ -1,6 +1,6 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
+  "name": "electron-qrshare",
+  "productName": "ElectronQRShare",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
@@ -30,8 +30,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "ElectronQRShare",
+    "appId": "com.fyhao.ElectronQRShare",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -82,18 +82,18 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "fyhao",
+      "repo": "electron-qrshare"
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/fyhao/electron-qrshare.git"
   },
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "fyhao Maintainers",
+    "email": "fyhao1@gmail.com",
+    "url": "https://fyhao.com"
   },
   "contributors": [
     {
@@ -109,7 +109,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/fyhao/electron-qrshare/issues"
   },
   "keywords": [
     "electron",
@@ -122,7 +122,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/fyhao/electron-qrshare#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {

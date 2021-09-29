@@ -34,8 +34,10 @@ ipcMain.on('ipc-example', async (event, arg) => {
 });
 
 ipcMain.on('performTest', async (event, arg) => {
-  console.log('main recv performTest: ' + JSON.stringify(arg));
-  event.reply('testReply', {reply:23});
+  console.log(`main recv performTest: ${JSON.stringify(arg)}`);
+  event.reply('testReply', {
+    reply: 23,
+  });
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -86,7 +88,7 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-	  nodeIntegration:true
+      nodeIntegration: true,
     },
   });
 

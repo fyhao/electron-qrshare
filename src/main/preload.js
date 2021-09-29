@@ -5,19 +5,19 @@ contextBridge.exposeInMainWorld('electron', {
     myPing() {
       ipcRenderer.send('ipc-example', 'ping');
     },
-	publishEvent(channel, data) {
-		console.log('in preload publishEvent: ' + channel + ', ' + JSON.stringify(data));
-		ipcRenderer.send(channel, data);
-	},
+    publishEvent(channel, data) {
+      // console.log('in preload publishEvent: ' + channel + ', ' + JSON.stringify(data));
+      ipcRenderer.send(channel, data);
+    },
     on(channel, func) {
-      const validChannels = ['ipc-example','testReply'];
+      const validChannels = ['ipc-example', 'testReply'];
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.on(channel, (event, ...args) => func(...args));
       }
     },
     once(channel, func) {
-      const validChannels = ['ipc-example','testReply'];
+      const validChannels = ['ipc-example', 'testReply'];
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.once(channel, (event, ...args) => func(...args));

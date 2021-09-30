@@ -40,9 +40,23 @@ ipcMain.on('performTest', async (event, arg) => {
   });
 });
 ipcMain.on('startServer', async(event, arg) => {
+	
+	const express = require('express')
+	const app = express()
+	const port = 3000
+
+	app.get('/', (req, res) => {
+	  res.send('Hello World!')
+	})
+
+	app.listen(port, () => {
+	  console.log(`Example app listening at http://localhost:${port}`)
+	})
+
+
 	const ngrok = require('ngrok');
 	(async function() {
-	  const url = await ngrok.connect();
+	  const url = await ngrok.connect(port);
 	  console.log('ngrok url: ' + url);
 	  event.reply('responseServerURL', {
 		  url: url,

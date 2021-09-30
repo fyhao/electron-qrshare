@@ -58,9 +58,16 @@ ipcMain.on('startServer', async(event, arg) => {
 	(async function() {
 	  const url = await ngrok.connect(port);
 	  console.log('ngrok url: ' + url);
-	  event.reply('responseServerURL', {
+	  var QRCode = require('qrcode')
+ 
+	  QRCode.toDataURL(url, function (err, qrcodeurl) {
+	    console.log('qrcode URL: ' + qrcodeurl)
+		event.reply('responseServerURL', {
 		  url: url,
-	  });
+		  qrcodeurl: qrcodeurl
+		});
+	  })
+	  
 	})();
 });
 

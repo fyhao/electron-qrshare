@@ -2,15 +2,11 @@ import React from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.global.css';
+import { useState } from 'react';
 
-function handleTest() {
-  window.electron.ipcRenderer.publishEvent('performTest', { test: 12 });
-  window.electron.ipcRenderer.publishEvent('startServer', { });
-  window.electron.ipcRenderer.once('responseServerURL', (data) => {
-	  console.log('response server url: ' + JSON.stringify(data));
-	  alert(data.url);
-  });
-}
+
+
+
 
 /*
 window.electron.ipcRenderer.on('testReply', (data) => {
@@ -18,6 +14,19 @@ window.electron.ipcRenderer.on('testReply', (data) => {
 });
 */
 const Hello = () => {
+  const [count, setCount] = useState(0);
+  const [qrcodeimg, setQrcodeimg] = useState('');
+  function handleTest() {
+    window.electron.ipcRenderer.publishEvent('performTest', { test: 12 });
+    window.electron.ipcRenderer.publishEvent('startServer', { });
+    window.electron.ipcRenderer.once('responseServerURL', (data) => {
+  	  console.log('response server url: ' + JSON.stringify(data));
+  	  var qrcodeurl = data.qrcodeurl;
+	  setQrcodeimg(qrcodeurl);
+    });
+    setCount(count + 1);
+  }
+
   return (
     <div>
       <div className="Hello">
@@ -50,9 +59,11 @@ const Hello = () => {
           </button>
         </a>
         <hr />
+		<p>{count}</p>
         <button type="button" onClick={handleTest}>
           Test
         </button>
+		<img src={qrcodeimg} />
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ window.electron.ipcRenderer.on('testReply', (data) => {
 const Hello = () => {
   const [count, setCount] = useState(0);
   const [qrcodeimg, setQrcodeimg] = useState('');
+  const [data, setData] = useState('');
   function handleTest() {
     window.electron.ipcRenderer.publishEvent('performTest', { test: 12 });
     window.electron.ipcRenderer.publishEvent('startServer', { });
@@ -26,6 +27,11 @@ const Hello = () => {
     });
     setCount(count + 1);
   }
+  
+  window.electron.ipcRenderer.on('responseData', (userdata) => {
+	  console.log('received data: ' + userdata);
+	  setData(JSON.stringify(userdata));
+  });
 
   return (
     <div>
@@ -63,7 +69,10 @@ const Hello = () => {
         <button type="button" onClick={handleTest}>
           Test
         </button>
+		<br />
 		<img src={qrcodeimg} />
+		<br />
+		<p>{data}</p>
       </div>
     </div>
   );

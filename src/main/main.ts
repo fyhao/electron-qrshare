@@ -42,11 +42,25 @@ ipcMain.on('performTest', async (event, arg) => {
 ipcMain.on('startServer', async(event, arg) => {
 	
 	const express = require('express')
+	var bodyParser = require('body-parser')
 	const app = express()
 	const port = 3000
+	// create application/json parser
+	var jsonParser = bodyParser.json()
+
+	// create application/x-www-form-urlencoded parser
+	var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 	app.get('/', (req, res) => {
 	  res.send('Hello World!')
+	})
+	
+	app.post('/senddata', jsonParser, (req, res) => {
+	  var data = req.body;
+	  event.reply('responseData', {
+		  data: data
+		});
+	  res.end('0');
 	})
 
 	app.listen(port, () => {
@@ -60,7 +74,7 @@ ipcMain.on('startServer', async(event, arg) => {
 	  console.log('ngrok url: ' + url);
 	  var QRCode = require('qrcode')
  
-	  QRCode.toDataURL(url, function (err, qrcodeurl) {
+	  QRCode.toDataURL(url + '/senddata', function (err, qrcodeurl) {
 	    console.log('qrcode URL: ' + qrcodeurl)
 		event.reply('responseServerURL', {
 		  url: url,

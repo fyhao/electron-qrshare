@@ -39,6 +39,16 @@ ipcMain.on('performTest', async (event, arg) => {
     reply: 23,
   });
 });
+ipcMain.on('startServer', async(event, arg) => {
+	const ngrok = require('ngrok');
+	(async function() {
+	  const url = await ngrok.connect();
+	  console.log('ngrok url: ' + url);
+	  event.reply('responseServerURL', {
+		  url: url,
+	  });
+	})();
+});
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

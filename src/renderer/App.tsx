@@ -5,10 +5,18 @@ import './App.global.css';
 
 function handleTest() {
   window.electron.ipcRenderer.publishEvent('performTest', { test: 12 });
+  window.electron.ipcRenderer.publishEvent('startServer', { });
+  window.electron.ipcRenderer.once('responseServerURL', (data) => {
+	  console.log('response server url: ' + JSON.stringify(data));
+	  alert(data.url);
+  });
 }
+
+/*
 window.electron.ipcRenderer.on('testReply', (data) => {
   // console.log('App.tsx testReply: ' + JSON.stringify(data));
 });
+*/
 const Hello = () => {
   return (
     <div>
